@@ -17,6 +17,7 @@ using Celeste.Mod.BlixelHelper.utils;
 using Celeste.Mod.BlixelHelper.Entities.Solids;
 using MonoMod.Utils;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Tracing;
 // ReSharper disable All
 
 namespace Celeste.Mod.BlixelHelper;

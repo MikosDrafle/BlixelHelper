@@ -33,7 +33,6 @@ zipMover.placements = {
         zeroPullStrength = 128,
         pulseEndTime = 1,
         wallBouncePulse = false,
-        reformTime = 3.0,
         refillDashes = 0
     }
 }

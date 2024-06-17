@@ -151,7 +151,7 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             base.Update();
 
             adder = Calc.Approach(adder, 0, (PulseStrength * Engine.DeltaTime) / PulseEndTime);
-            percent = Calc.Approach(Calc.Approach(percent, 1, (adder*Engine.DeltaTime)/distance), 0, (zeroPullSpeed*Engine.DeltaTime)/distance);
+            percent = Calc.Approach(Calc.Approach(percent, 0, (zeroPullSpeed*Engine.DeltaTime) / distance), 1, (adder * Engine.DeltaTime) / distance);
             MoveTo(Vector2.Lerp(start, end, percent));
         }
 
