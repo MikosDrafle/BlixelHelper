@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sprites>
+  <blixel_AnyDirForceDash path="objects/refill/blixel/AnyDirForceDash/" start="idle">
+    <Loop id="idle" path="idle" delay="0.08" />
+  </blixel_AnyDirForceDash>
+  <blixel_ADFDPointer path="objects/refill/blixel/ADFDPointer/" start="idle">
+    <Loop id="idle" path="idle" delay="0.08" />
+  </blixel_ADFDPointer>
+  <blixel_RaycastDash path ="objects/refill/blixel/RaycastDash/" start="idle">
+    <Loop id="idle" path="idle" delay="0.08" />
+  </blixel_RaycastDash>
+</Sprites>
