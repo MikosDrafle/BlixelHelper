@@ -149,10 +149,13 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
         public override void Update()
         {
             base.Update();
+            float totalApproach = (zeroPullSpeed - (adder)) * Engine.DeltaTime;
 
-            adder = Calc.Approach(adder, 0, (PulseStrength * Engine.DeltaTime) / PulseEndTime);
-            percent = Calc.Approach(Calc.Approach(percent, 0, (zeroPullSpeed*Engine.DeltaTime) / distance), 1, (adder * Engine.DeltaTime) / distance);
-            MoveTo(Vector2.Lerp(start, end, percent));
+            adder = Calc.Approach(adder, 0, (PulseStrength/PulseEndTime) * Engine.DeltaTime);
+
+            Vector2 movedVector = Calc.Approach(this.Position, MathF.Sign(totalApproach) == 1 ? start : end, MathF.Abs(totalApproach));
+            percent = Vector2.Distance(movedVector, start) / Vector2.Distance(start, end);
+            MoveTo(movedVector);
         }
 
         private DashCollisionResults Collide(Player player, Vector2 dir)
@@ -164,6 +167,11 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             Pulse(player);
             if ((dir.Y != 0 && player.Speed.X != 0) || (dir.X != 0 && Input.Grab.Check))
             {
+                if (dir.X!=0 && Input.GrabCheck)
+                {
+                    float totalApproach = (zeroPullSpeed - (adder));
+                    player.Speed = (end - start).SafeNormalize() * totalApproach;
+                }
                 return DashCollisionResults.NormalCollision;
             }
             return DashCollisionResults.Rebound;
