@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Triangulator;
 
 namespace Celeste.Mod.BlixelHelper.Entities
 {
@@ -30,8 +31,11 @@ namespace Celeste.Mod.BlixelHelper.Entities
         private float markerInterval;
 
         private float LeftmostX;
+
+        internal string windingOrderString;
         public ArbitraryShapeEntity(EntityData data, Vector2 offset) : base(data.Position + offset)
         {
+            windingOrderString = data.Attr("windingOrder");
             Effect = data.Attr("effect");
             markerMovement = data.Float("markerEffectPixels");
             markerInterval = data.Float("markerInterval");
