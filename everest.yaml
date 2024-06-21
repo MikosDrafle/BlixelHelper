@@ -1,5 +1,5 @@
 - Name: BlixelHelper
-  Version: 1.0.2
+  Version: 1.1.1
   DLL: bin/BlixelHelper.dll
   Dependencies:
     - Name: EverestCore
