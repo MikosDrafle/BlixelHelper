@@ -356,3 +356,4 @@ MigrationBackup/
 .idea
 
 /Source/Entities/Solids/DashPulseBlock.cs
+/Source/lib/CommunalHelper.dll
