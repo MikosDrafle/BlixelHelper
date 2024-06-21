@@ -20,7 +20,8 @@ aseEnt.placements = {
         depth = 0,
         effect = "",
         markerEffectPixels = 0.4,
-        markerInterval = 0.6
+        markerInterval = 0.6,
+        windingOrder = "Auto"
     }
 }
 
@@ -33,6 +34,14 @@ aseEnt.fieldInformation = {
         options = {
             "",
             "Marker"
+        }
+    },
+    windingOrder = {
+        fieldType = "string",
+        options = {
+            "Auto",
+            "Clockwise",
+            "Counter Clockwise"
         }
     }
 }

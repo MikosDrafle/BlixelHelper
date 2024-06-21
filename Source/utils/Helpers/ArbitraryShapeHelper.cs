@@ -28,7 +28,7 @@ namespace Celeste.Mod.BlixelHelper.utils
                 input[i] = nodes[i - 1] + randScaleModifier(randScale);
             }
 
-            Triangulator.Triangulator.Triangulate(input, Triangulator.WindingOrder.Clockwise, Triangulator.WindingOrder.CounterClockwise, out var verts, out var indices);
+            Triangulator.Triangulator.Triangulate(input, Triangulator.WindingOrder.Clockwise, (entity.windingOrderString!="Auto" ? null : (entity.windingOrderString=="Clockwise" ? Triangulator.WindingOrder.CounterClockwise : Triangulator.WindingOrder.Clockwise)), out var verts, out var indices);
 
             VertexPositionColor[] fill = new VertexPositionColor[1024];
             for (int i = 0; i < indices.Length; i++)
