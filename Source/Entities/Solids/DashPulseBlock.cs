@@ -28,7 +28,7 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             ropeColor = DashPulseBlock.ropeColor;
             highlightColor = DashPulseBlock.highlightColor;
 
-            from = DashPulseBlock.start + new Vector2(DashPulseBlock.Width/2, DashPulseBlock.Height/2);
+            from = DashPulseBlock.start + new Vector2(DashPulseBlock.Width / 2, DashPulseBlock.Height / 2);
             to = DashPulseBlock.end + new Vector2(DashPulseBlock.Width / 2, DashPulseBlock.Height / 2);
 
             cog = GFX.Game["objects/dashpulse/cogOuter"];
@@ -57,7 +57,7 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             Draw.Line(from + topRopeOffset + offset, to + topRopeOffset + offset, rC);
             Draw.Line(from + bottomRopeOffset + offset, to + bottomRopeOffset + offset, rC);
 
-            for (float num = 4f - DashPulseBlock.percent * MathF.PI * 8f % 4f; num < (to-from).Length(); num += 4f)
+            for (float num = 4f - DashPulseBlock.percent * MathF.PI * 8f % 4f; num < (to - from).Length(); num += 4f)
             {
                 Vector2 topTrackOffset = from + topRopeOffset + direction.Perpendicular() + direction * num;
                 Vector2 bottomTrackOffset = to + bottomRopeOffset - direction * num;
@@ -108,11 +108,11 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
         MTexture cog;
 
         EventInstance moving;
-        public DashPulseBlock(EntityData data, Vector2 offset) : base(data.Position+offset, data.Width, data.Height, true)
+        public DashPulseBlock(EntityData data, Vector2 offset) : base(data.Position + offset, data.Width, data.Height, true)
         {
             Collidable = true;
             MTexture loadPatch = GFX.Game["objects/dashpulse/idle00"];
-            
+
             MikoUtils.PrepareTiles(this, loadPatch, out renderPatch);
             MikoUtils.PrepareTiles(this, GFX.Game["objects/dashpulse/wounceTexture"], out wouncePatch);
 
@@ -151,11 +151,10 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             base.Update();
             float totalApproach = (zeroPullSpeed - (adder)) * Engine.DeltaTime;
 
-            adder = Calc.Approach(adder, 0, (PulseStrength/PulseEndTime) * Engine.DeltaTime);
+            adder = Calc.Approach(adder, 0, (PulseStrength / PulseEndTime) * Engine.DeltaTime);
 
-            Vector2 movedVector = Calc.Approach(this.Position, MathF.Sign(totalApproach) == 1 ? start : end, MathF.Abs(totalApproach));
-            percent = Vector2.Distance(movedVector, start) / Vector2.Distance(start, end);
-            MoveTo(movedVector);
+            percent = Calc.Approach(percent, MathF.Sign(totalApproach) == 1 ? 0 : 1, MathF.Abs(totalApproach) / distance);
+            MoveTo(Vector2.Lerp(start, end, percent));
         }
 
         private DashCollisionResults Collide(Player player, Vector2 dir)
@@ -167,10 +166,10 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             Pulse(player);
             if ((dir.Y != 0 && player.Speed.X != 0) || (dir.X != 0 && Input.Grab.Check))
             {
-                if (dir.X!=0 && Input.GrabCheck)
+                if (dir.X != 0 && Input.GrabCheck)
                 {
                     float totalApproach = (zeroPullSpeed - (adder));
-                    player.Speed = (end - start).SafeNormalize() * totalApproach;
+                    player.Speed = (Vector2.UnitX * 5f * (player.Facing == Facings.Left ? -1f : 1f)) + (end - start).SafeNormalize() * Math.Abs(totalApproach);
                 }
                 return DashCollisionResults.NormalCollision;
             }
@@ -179,17 +178,18 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
         internal void Pulse(Player player)
         {
             Audio.Play(CustomSFX.game_aero_block_impact);
-            if (amountRefill!=0)
+            if (amountRefill != 0)
             {
                 player.RefillStamina();
             }
 
-            if (amountRefill<0)
+            if (amountRefill < 0)
             {
                 player.RefillDash();
-            } else
+            }
+            else
             {
-                if (amountRefill!=0)
+                if (amountRefill != 0)
                 {
                     player.Dashes = (int)Math.Clamp(player.Dashes + amountRefill, 0, amountRefill);
                 }
@@ -203,18 +203,18 @@ namespace Celeste.Mod.BlixelHelper.Entities.Solids
             int TileWidth = (int)(Width / 8f);
             int TileHeight = (int)(Height / 8f);
 
-            Draw.Rect(Position-Vector2.One, Width+2f, Height+2f, Color.Black);
+            Draw.Rect(Position - Vector2.One, Width + 2f, Height + 2f, Color.Black);
 
-            for (float x = 4f; x <= Width-4f; x+=8f)
+            for (float x = 4f; x <= Width - 4f; x += 8f)
             {
-                for (float y = 4f; y <= Height-4f; y+=8f)
+                for (float y = 4f; y <= Height - 4f; y += 8f)
                 {
                     float normalX = x - 4f;
                     float normalY = y - 4f;
 
                     bool Reverse = mod(normalY, 16) == 8f ? true : false;
 
-                    if (mod(normalX,16)==8f)
+                    if (mod(normalX, 16) == 8f)
                     {
                         Reverse = !Reverse;
                     }
