@@ -35,7 +35,7 @@ namespace Celeste.Mod.BlixelHelper.Entities
         internal string windingOrderString;
         public ArbitraryShapeEntity(EntityData data, Vector2 offset) : base(data.Position + offset)
         {
-            windingOrderString = data.Attr("windingOrder");
+            windingOrderString = data.Attr("windingOrder", "Auto");
             Effect = data.Attr("effect");
             markerMovement = data.Float("markerEffectPixels");
             markerInterval = data.Float("markerInterval");
