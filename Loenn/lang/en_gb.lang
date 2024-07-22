@@ -1,0 +1,1 @@
+entities.BlixelHelper/DashGateTrigger.placements.tooltip.default=Dashing in the specified direction of the trigger will open a Temple Gate intersecting with the node. X and Y should be -1, 0 or 1.

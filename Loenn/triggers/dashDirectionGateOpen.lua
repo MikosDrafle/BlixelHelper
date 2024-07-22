@@ -7,7 +7,7 @@ ddgo.nodeVisibility = "selected"
 ddgo.nodeLineRenderType = "line"
 
 ddgo.placements = {
-    name = "Dash-Direction Gate Trigger",
+    name = "Dash-Direction Gate Trigger [Soep-Sides Farewell Collab]",
     placementType = "rectangle",
     data = {
         ["dirX"] = 1,
