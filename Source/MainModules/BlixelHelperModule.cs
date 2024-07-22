@@ -62,13 +62,10 @@ public class BlixelHelperModule : EverestModule {
         if (self.Scene.Tracker.CountEntities<WaveFlyController>() > 0)
         {
             float FeatherData = self.Facing == Facings.Left ? -1f : 1f;
-            if (self.Scene.Tracker.CountEntities<WaveFlyController>() > 0)
-            {
-                DynamicData data = DynamicData.For(self);
+            DynamicData data = DynamicData.For(self);
 
-                data.Set("WaveDirection", FeatherData);
-                data.Set("WaveSfxPlayed", false);
-            }
+            data.Set("WaveDirection", FeatherData);
+            data.Set("WaveSfxPlayed", false);
             self.Speed = new Vector2(170f * FeatherData, (Input.MenuUp.Check || Input.Jump.Check) ? -170f : 170f);
             self.starFlyTimer = 3f;
         }
